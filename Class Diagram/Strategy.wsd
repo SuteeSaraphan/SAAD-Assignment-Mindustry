@@ -1,0 +1,57 @@
+@startuml
+
+
+namespace formations #DDDDDD{
+Formation x--> FormationPattern
+
+
+class Formation{
++ slotAssignments : Seq<SlotAssignment>
++ anchor : Vec3
++ slotAssignmentsStrategy : SlotAssignmentStrategy
++ motionModerator : FormationModerator
+- positionOffset : Vec3
+- orientationMatrix : Mat 
+- driftOffset : Vec3
++ pattern : FormationPattern
+---
++ Formation(anchor : Vec3, pattern : FormationPattern)
++ updateSlotAssigmnet() : void
++ changePattern(pattern : FormationPattern) : boolean
++ addMembers(members : iterable<? extends FormationMember>) : int
++ addMembers(member : FormationMember) : int
++ getSlotAssigmnetAt(index : int) : SlotAssignment
++ getSlotAssigmnetCount() : int
++ updateSlots() : void
+}
+
+abstract FormationPattern{
+    + slot : int
+    + spacing : Float
+---
++ {abstract} calculateSlotLocation(out : Vec3, slot : int) : Vec3
++ supportsSlots(slotCount : int) : boolean
+}
+
+
+namespace patterns #DDDDDD{
+SquareFormation --|> formations.FormationPattern
+CircleFormation --|> formations.FormationPattern
+class SquareFormation {
++ calculateSlotLocation(out : Vec3, slot : int) : Vec3
+}
+
+class CircleFormation{
++ angleOffset : float
+---
++ calculateSlotLocation(out : Vec3, slot : int) : Vec3
+}
+
+}
+
+}
+
+
+
+@enduml
+

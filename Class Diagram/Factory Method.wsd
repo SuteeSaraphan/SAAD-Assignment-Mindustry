@@ -1,0 +1,149 @@
+@startuml
+
+type.ErrorContent --|> Ctype.Content
+type.Item -left-|> Ctype.UnlockableContent
+
+
+namespace Ctype #DDDDDD{
+    Content x-left-> ModContentInfo
+    Content +-- ModContentInfo
+    MappableContent -left-|> Content
+    UnlockableContent --|> MappableContent
+abstract Content {
++ id : short
++ minfo : ModContentInfo = new ModContentInfo()
+---
++ Content()
++ {abstract}getContentType() : ContentType
++ init() : void
++ load() : void
++ hasErrored() : boolean
++ dispose() : void
++ compareTo(c : Content) : int
++ toString() : String
+}
+
+Class ModContentInfo{
++ mod : LoadedMod
++ sourceFile : Fi 
++ error : String
++ baseError : Throwable
+}
+
+abstract MappableContent{
++ name : String 
+---
++ MappableContent(name : String)
++ toString() : String 
+
+}
+
+abstract UnlockableContent{
++ stats : Stats = new Stats()
++ localizedName : String
++ description : String
++ details : String
++ alwaysUnlocked : boolean = false
++ inlineDescription : boolean = true
++ iconId : int = 0
+---
++ UnlockableContent(name : String)
++ node() : TechNode
++ displayDescription() : String
++ checkStats() : void
++ setStats() : void
++ createIcons(packer : MultiPacker) : void
++ researchRequirements() : ItemStack[]
++ emoji() : String
++ icon(icon : Cicon) : TextureRegion
++ prefDatabaseIcon() : Cicon
++ getDependencies(cons : Cons<UnlockableContent>) : void
++ display(table : Table) : void
++ onUnlock() : void
++ isHidden() : boolean
++ showUnlock() : boolean
++ unlock() : void
++ quietUnlock() : void
++ unlocked() : boolean
++ clearUnlock() : void
++ unlockedNow() : boolean
++ locked() : boolean
+}
+
+}
+
+namespace type #DDDDDD{
+    
+class Item{
++ color : Color 
++ explosiveness : float = 0f
++ flammability : float = 0f
++ radioactivity : float 
++ charge : float = 0f
++ hardness : int = 0
++ cost : float = 1f
++ lowPriority : boolean
+---
++ Item(name : String, color : Color)
++ Item(name : String)
++ setStats() : void
++ toString() : String
++ getContentType() : ContentType
++ getAllOres() : Seq<Item>
+}
+class ErrorContent{
++ getContentType() : ContentType
+}
+
+
+}
+
+namespace entities #DDDDDD{
+namespace bullet #DDDDDD{
+BulletType -right-|> Ctype.Content
+class BulletType{
++ lifetime() : float
++  speed() : float
++damage() : float
++ hitSize() : float
++    drawSize() float
++    drag() : float
++ pierce() : boolean
++ pierceBuilding() : boolean
++ inaccuracy() : float
++ ammoMultiplier() : float
++ reloadMultiplier() : float
++    buildingDamageMultiplier() : float
++    recoil() : float
++    splashDamage() : float
++    knockback() : float
++    collidesTiles() : boolean
++    collidesTeam() : boolean
++    collidesAir() : boolean
++   collidesGround() : boolean
++    collides() : boolean
++    hittable() : boolean
++    reflectable() : boolean
++    absorbable() : boolean
+---
++ BulletType(speed : float, damage : float) : void
++ BulletType() : BulletType
++ getContentType() : ContentType
++ estimateDPS() : float
++ range() : float
++ continuosDamage() : float
+
+
+}
+
+
+}
+
+}
+
+
+
+
+
+@enduml
+

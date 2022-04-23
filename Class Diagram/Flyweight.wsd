@@ -1,0 +1,123 @@
+@startuml
+
+
+namespace type #DDDDDD{
+
+
+class Weapon{
++ name : String = ""
++ bullet : BulletType
++ mirror : boolean = true
++ flipSprite : boolean = false
++ alternate : boolean = true
++ rotate : boolean = false
++ top : boolean = true
++ continuos : boolean
++ rotate Speed : float = 20f
++ reload : float
++ shots : int = 1
++ spacing : float = 0
+---
++ {abstract}Weapon(name : String)
++ Weapon()
++ copy() : Weapon
++ load() : void
+}
+}
+
+namespace entities #DDDDDD{
+namespace bullet #DDDDDD{
+type.Weapon -left-> BulletType
+content.Bullet o-right-> BulletType
+LaserBulletType -right-|> BulletType
+MassDriverBolt -right-|> BulletType
+class LaserBulletType {
++ colors : Color[]
++ lenght : float
++ width : float 
++ lengthFalloff : float
++ sideLenght : float
++ sideWidth : float
++ sideAngle : float
++ lightningSpacing : float
++ lightningDelay : float
++ lightningAngleRand : float
++ largeHit : boolean
++ laserEffect : Effect
+---
++ LaserBulletType(damage : float)
++ LaserBulletType()
++ estimateDPS() : float
++ init() : void
++ range() : float
++ init(b : Bullet) : void
++ draw(b : Bullet) : void
++ drawLight(b : Bullet) : void
+}
+
+class MassDriverBolt{
++ collidesTiles() : boolean
++ lifetime() : float
++ despawnEffect()
++ hitEffect()
+---
++ draw(b : Bullet) : void
++ update(b : Bullet) : void
++ despawned (b : Bullet) : void
++ hit(b : Bullet, hitx : float, hity : float) : void
+}
+
+class BulletType{
++ lifetime() : float
++  speed() : float
++damage() : float
++ hitSize() : float
++    drawSize() float
++    drag() : float
++ pierce() : boolean
++ pierceBuilding() : boolean
++ inaccuracy() : float
++ ammoMultiplier() : float
++ reloadMultiplier() : float
++    buildingDamageMultiplier() : float
++    recoil() : float
++    splashDamage() : float
++    knockback() : float
++    collidesTiles() : boolean
++    collidesTeam() : boolean
++    collidesAir() : boolean
++   collidesGround() : boolean
++    collides() : boolean
++    hittable() : boolean
++    reflectable() : boolean
++    absorbable() : boolean
+---
++ BulletType(speed : float, damage : float) : void
++ BulletType() : BulletType
++ getContentType() : ContentType
++ estimateDPS() : float
++ range() : float
++ continuosDamage() : float
+
+
+}
+
+
+}
+
+}
+
+namespace content #DDDDDD{
+class Bullet{
++ {static} BulletType[]
+---
++ load() : void
++ init(b : Bullet) : void
++ draw(b : Bullet) : void
++ update(b : Bullet) : void
+}
+}
+
+
+@enduml
+
