@@ -3,9 +3,9 @@
 > This Is A Material For Software Architecture And Design Assignment (Opensource Software Architecture Analysis)
 
 ## Associate
-[Mindustry](https://github.com/Anuken/Mindustry)
-[Overview Architecture Style](https://github.com/SuteeSaraphan/SAAD-Assignment-Mindustry/blob/main/Mindustry%20Documentation.pdf)
-[Presentation Slide](https://404.notfond)
+- [Mindustry](https://github.com/Anuken/Mindustry)
+- [Overview Architecture Style](https://github.com/SuteeSaraphan/SAAD-Assignment-Mindustry/blob/main/Mindustry%20Documentation.pdf)
+- [Presentation Slide](https://404.notfond)
 
 ## Members
 1. นาย ธนวัฒน์ 	 สุขแก้ว 	63015069
